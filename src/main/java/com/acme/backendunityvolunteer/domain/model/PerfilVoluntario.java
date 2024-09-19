@@ -26,4 +26,7 @@ public class PerfilVoluntario {
 
     @Column(columnDefinition = "TEXT")
     private String disponibilidad;
+
+    @Column(columnDefinition = "TEXT")
+    private String rating;
 }
