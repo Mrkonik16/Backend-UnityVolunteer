@@ -1,12 +1,11 @@
 package com.acme.backendunityvolunteer.infraestructure.rest;
 
+import com.acme.backendunityvolunteer.application.dto.OrganizacionSuscripcionDTO;
 import com.acme.backendunityvolunteer.application.dto.PerfilOrganizacionDTO;
 import com.acme.backendunityvolunteer.application.dto.PerfilVoluntarioDTO;
 import com.acme.backendunityvolunteer.application.dto.UsuarioDTO;
-import com.acme.backendunityvolunteer.application.dto.user_management.PerfilOrganizacionService;
-import com.acme.backendunityvolunteer.application.dto.user_management.PerfilVoluntarioService;
-import com.acme.backendunityvolunteer.application.dto.user_management.SesionUsuarioService;
-import com.acme.backendunityvolunteer.application.dto.user_management.UsuarioService;
+import com.acme.backendunityvolunteer.application.dto.user_management.*;
+import com.acme.backendunityvolunteer.domain.model.repository.PerfilOrganizacionRepository;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.AuthResponse;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.LoginRequest;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.RegisterRequest;
@@ -30,6 +29,11 @@ public class UsuarioController {
 
     @Autowired
     private PerfilOrganizacionService perfilOrganizacionService;
+    @Autowired
+    private OrganizacionSuscripcionService organizacionSuscripcionService;
+
+    @Autowired
+    private PerfilOrganizacionRepository perfilOrganizacionRepository;
 
     // -------------------
     // Gestión de Usuarios
@@ -123,6 +127,14 @@ public class UsuarioController {
         perfilOrganizacionService.actualizarPerfil(perfilOrganizacion);
         return ResponseEntity.noContent().build();
     }
+
+    // Actualizar suscripcion de una organización
+    @PutMapping("/organizaciones/{organizacionId}")
+    public ResponseEntity<Void> actualizarSuscripcionOrganizacion(@PathVariable Long organizacionId, @Valid @RequestBody OrganizacionSuscripcionDTO organizacionSuscripcion) {
+        organizacionSuscripcionService.actualizarSuscripcion(organizacionSuscripcion);
+        return ResponseEntity.noContent().build();
+    }
+
 
     // -------------------
     // Inicio de Sesión
