@@ -1,11 +1,7 @@
-package com.acme.backendunityvolunteer.application.dto.paymanet_management;
+package com.acme.backendunityvolunteer.application.dto.payment_management;
 
 import com.acme.backendunityvolunteer.application.dto.PagoDTO;
-import com.acme.backendunityvolunteer.application.dto.UsuarioDTO;
 import com.acme.backendunityvolunteer.domain.model.Pago;
-import com.acme.backendunityvolunteer.domain.model.TipoSubscricion;
-import com.acme.backendunityvolunteer.domain.model.TipoUsuario;
-import com.acme.backendunityvolunteer.domain.model.Usuario;
 import com.acme.backendunityvolunteer.domain.model.repository.PagoRepository;
 import com.acme.backendunityvolunteer.domain.model.repository.UsuarioRepository;
 import com.acme.backendunityvolunteer.interfaces.persistence.exception.NotFoundException;

@@ -1,12 +1,10 @@
 package com.acme.backendunityvolunteer.infraestructure.rest;
 
 import com.acme.backendunityvolunteer.application.dto.*;
-import com.acme.backendunityvolunteer.application.dto.paymanet_management.PagoService;
+import com.acme.backendunityvolunteer.application.dto.payment_management.PagoService;
 import com.acme.backendunityvolunteer.application.dto.user_management.OrganizacionSuscripcionService;
 import com.acme.backendunityvolunteer.application.dto.user_management.PerfilOrganizacionService;
-import com.acme.backendunityvolunteer.application.dto.user_management.PerfilVoluntarioService;
 import com.acme.backendunityvolunteer.application.dto.user_management.UsuarioService;
-import com.acme.backendunityvolunteer.domain.model.repository.PerfilOrganizacionRepository;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
