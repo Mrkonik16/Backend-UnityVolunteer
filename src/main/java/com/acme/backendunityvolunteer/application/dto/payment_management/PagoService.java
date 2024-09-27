@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 public class PagoService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
     private PagoRepository pagoRepository;
 
     public PagoDTO registrarPago(PagoDTO pagoDTO) {

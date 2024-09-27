@@ -5,6 +5,7 @@ import com.acme.backendunityvolunteer.application.dto.payment_management.PagoSer
 import com.acme.backendunityvolunteer.application.dto.user_management.OrganizacionSuscripcionService;
 import com.acme.backendunityvolunteer.application.dto.user_management.PerfilOrganizacionService;
 import com.acme.backendunityvolunteer.application.dto.user_management.UsuarioService;
+import com.acme.backendunityvolunteer.domain.model.TipoSubscricion;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,13 @@ public class PagoController {
     // -------------------
 
     // Registro de un nuevo pago
-    @PostMapping("/pago")
+    @PostMapping("/")
     public ResponseEntity<String> realizarPago(@Valid @RequestBody PagoRequest request) {
         // Crear y guardar el usuario primero
         PagoDTO pagoDTO = new PagoDTO();
         pagoDTO.setOrganizationId(request.getOrganization_id());
         pagoDTO.setMonto(request.getMonto());
-
+        pagoDTO.setTipoSubscricion(TipoSubscricion.valueOf(request.getTipoSubscripcion()));
         PagoDTO pagoGuardado = pagoService.registrarPago(pagoDTO);
         return ResponseEntity.ok("Pago registrado con éxito");
     }
@@ -49,7 +50,7 @@ public class PagoController {
     // -------------------
 
     // Obtener pago por su ID
-    @GetMapping("/pago/{pagoId}")
+    @GetMapping("/{pagoId}")
     public ResponseEntity<PagoDTO> obtenerPagoPorId(@PathVariable Long pagoId) {
         PagoDTO pago = pagoService.obtenerPagoPorId(pagoId);
         return ResponseEntity.ok(pago);
