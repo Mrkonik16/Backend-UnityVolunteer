@@ -7,16 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pagos")
-public class Pago {
+@Table(name = "asignaciones")
+public class Asignacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long organizacionId;
-    private Float monto;
-    @Column(nullable = false)
-    private TipoSubscricion tipoSubscricion;
-
+    private Long voluntarioId;
+    private Long actividadId;
 }

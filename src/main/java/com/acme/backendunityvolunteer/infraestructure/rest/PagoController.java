@@ -18,13 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class PagoController {
 
     @Autowired
-    private UsuarioService usuarioService;
-
-    @Autowired
-    private PerfilOrganizacionService perfilOrganizacionService;
-    @Autowired
-    private OrganizacionSuscripcionService organizacionSuscripcionService;
-    @Autowired
     private PagoService pagoService;
 
 

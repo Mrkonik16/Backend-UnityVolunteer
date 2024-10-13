@@ -74,7 +74,7 @@ public class OrganizacionSuscripcionService {
     // Método auxiliar para convertir PerfilOrganizacion a PerfilOrganizacionDTO
     private OrganizacionSuscripcionDTO mapToDTO(OrganizacionSuscripcion perfil) {
         OrganizacionSuscripcionDTO dto = new OrganizacionSuscripcionDTO();
-        dto.setId(perfil.getId());
+        dto.setOrganizacionId(perfil.getOrganizacionId());
         dto.setSubscripcion(perfil.getSubscripcion());
 
         return dto;
