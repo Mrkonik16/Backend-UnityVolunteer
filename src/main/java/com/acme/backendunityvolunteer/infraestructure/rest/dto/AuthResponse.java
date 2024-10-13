@@ -3,13 +3,15 @@ package com.acme.backendunityvolunteer.infraestructure.rest.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class AuthResponse {
     private String token;
     private String tipoUsuario;
+    private Long usuarioId;  // Incluir el ID del usuario
+    private String nombre;  // Incluir el nombre del usuario
 
+    // Getters y setters
     public String getToken() {
         return token;
     }
@@ -25,4 +27,21 @@ public class AuthResponse {
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.acme.backendunityvolunteer.application.dto.user_management;
 
 import com.acme.backendunityvolunteer.application.dto.PerfilVoluntarioDTO;
 import com.acme.backendunityvolunteer.domain.model.PerfilVoluntario;
+import com.acme.backendunityvolunteer.domain.model.TipoUsuario;
 import com.acme.backendunityvolunteer.domain.model.Usuario;
 import com.acme.backendunityvolunteer.domain.model.repository.PerfilVoluntarioRepository;
 import com.acme.backendunityvolunteer.domain.model.repository.UsuarioRepository;
@@ -42,15 +43,14 @@ public class PerfilVoluntarioService {
 
     @Transactional
     public void crearPerfilVoluntario(PerfilVoluntarioDTO perfilDTO) {
-        if (perfilDTO.getUsuarioId() == null) {
-            throw new IllegalArgumentException("El ID del usuario no puede ser nulo");
-        }
-
         Usuario usuario = usuarioRepository.findById(perfilDTO.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + perfilDTO.getUsuarioId()));
 
+        if (usuario.getTipoUsuario() != TipoUsuario.VOLUNTARIO) {
+            throw new IllegalArgumentException("El usuario con ID " + perfilDTO.getUsuarioId() + " no es un voluntario.");
+        }
+
         PerfilVoluntario perfil = new PerfilVoluntario();
-        // Asignamos el usuario al perfil
         perfil.setUsuario(usuario);
         perfil.setIntereses(perfilDTO.getIntereses());
         perfil.setExperiencia(perfilDTO.getExperiencia());
@@ -58,6 +58,7 @@ public class PerfilVoluntarioService {
 
         perfilVoluntarioRepository.save(perfil);
     }
+
 
     // Método auxiliar para convertir PerfilVoluntario a PerfilVoluntarioDTO
     private PerfilVoluntarioDTO mapToDTO(PerfilVoluntario perfil) {
