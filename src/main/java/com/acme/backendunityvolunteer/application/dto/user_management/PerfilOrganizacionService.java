@@ -65,7 +65,6 @@ public class PerfilOrganizacionService {
         perfilOrganizacionRepository.save(perfil);
     }
 
-
     // Método auxiliar para convertir PerfilOrganizacion a PerfilOrganizacionDTO
     private PerfilOrganizacionDTO mapToDTO(PerfilOrganizacion perfil) {
         PerfilOrganizacionDTO dto = new PerfilOrganizacionDTO();

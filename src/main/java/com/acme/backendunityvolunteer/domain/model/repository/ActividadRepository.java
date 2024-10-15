@@ -3,14 +3,13 @@ package com.acme.backendunityvolunteer.domain.model.repository;
 import com.acme.backendunityvolunteer.domain.model.Actividad;
 import com.acme.backendunityvolunteer.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
+import java.util.List;
 
-@Repository
 public interface ActividadRepository extends JpaRepository<Actividad, Long> {
+    List<Actividad> findByTipo(String tipo);
     Optional<Actividad> findById(Long id);
-
 }
+
 
 

@@ -55,6 +55,7 @@ public class PerfilVoluntarioService {
         perfil.setIntereses(perfilDTO.getIntereses());
         perfil.setExperiencia(perfilDTO.getExperiencia());
         perfil.setDisponibilidad(perfilDTO.getDisponibilidad());
+        perfil.setPuntuacionPromedio(perfil.getPuntuacionPromedio());
 
         perfilVoluntarioRepository.save(perfil);
     }
@@ -68,6 +69,7 @@ public class PerfilVoluntarioService {
         dto.setIntereses(perfil.getIntereses());
         dto.setExperiencia(perfil.getExperiencia());
         dto.setDisponibilidad(perfil.getDisponibilidad());
+        dto.setPuntuacionPromedio(String.valueOf(perfil.getPuntuacionPromedio()));
         return dto;
     }
 }
