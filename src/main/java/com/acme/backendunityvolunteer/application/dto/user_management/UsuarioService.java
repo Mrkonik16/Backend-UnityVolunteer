@@ -60,13 +60,13 @@ public class UsuarioService {
     // Iniciar sesión con correo y contraseña
     public String iniciarSesion(String correo, String contrasenia) {
         Usuario usuario = usuarioRepository.findByCorreo(correo)
-                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con ese correo"));
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ese correo"));
 
         if (!usuario.getContrasenia().equals(contrasenia)) {
             throw new IllegalArgumentException("Contraseña incorrecta");
         }
 
-
+        // Retornar un token ficticio o real generado
         return "token_generado";
     }
 

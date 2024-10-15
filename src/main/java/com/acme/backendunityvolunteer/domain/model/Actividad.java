@@ -1,11 +1,15 @@
 package com.acme.backendunityvolunteer.domain.model;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
+
+import java.time.LocalDateTime;
+
 @Getter
+@Setter
 @Entity
 @Table(name = "actividad")
 public class Actividad {
@@ -23,7 +27,7 @@ public class Actividad {
     @Column(nullable = false)
     private String tipo;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private Float duracion;
 
 }

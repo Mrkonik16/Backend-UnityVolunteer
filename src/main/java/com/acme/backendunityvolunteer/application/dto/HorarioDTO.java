@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ActividadDTO {
+public class HorarioDTO {
     private Long id;
+    private Long userid;
     private String nombre;
-    private String descripcion;
-    private String tipo;
-    private Float duracion;
+    private Long num_Actividades;
+    private Long num_Horas;
 }
