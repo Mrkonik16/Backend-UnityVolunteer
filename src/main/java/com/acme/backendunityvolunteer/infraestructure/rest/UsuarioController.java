@@ -11,6 +11,7 @@ import com.acme.backendunityvolunteer.infraestructure.rest.dto.LoginRequest;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.RegisterRequest;
 import com.acme.backendunityvolunteer.infraestructure.rest.dto.UsuarioUpdateRequest;
 
+import com.acme.backendunityvolunteer.interfaces.persistence.exception.NotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 
 @RestController
@@ -33,11 +35,6 @@ public class UsuarioController {
 
     @Autowired
     private PerfilOrganizacionService perfilOrganizacionService;
-    @Autowired
-    private OrganizacionSuscripcionService organizacionSuscripcionService;
-
-    @Autowired
-    private PerfilOrganizacionRepository perfilOrganizacionRepository;
 
     // Registro de un nuevo usuario (voluntario u organización)
     @PostMapping("/registro")
@@ -174,12 +171,70 @@ public class UsuarioController {
     }
 
 
-    // Actualizar suscripcion de una organización
-    @PutMapping("/organizaciones/{organizacionId}")
-    public ResponseEntity<Void> actualizarSuscripcionOrganizacion(@PathVariable Long organizacionId, @Valid @RequestBody OrganizacionSuscripcionDTO organizacionSuscripcion) {
-        organizacionSuscripcionService.actualizarSuscripcion(organizacionSuscripcion);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/PerfilVoluntario/{usuarioId}")
+    public ResponseEntity<Map<String, Object>> obtenerPerfilCompleto(@PathVariable Long usuarioId) {
+        try {
+            // Obtener los detalles del usuario por su ID
+            UsuarioDTO usuarioDTO = usuarioService.obtenerUsuarioPorId(usuarioId);
+
+            // Obtener el perfil del voluntario usando el usuarioId
+            PerfilVoluntarioDTO perfilVoluntarioDTO = perfilVoluntarioService.obtenerPerfilPorUsuarioId(usuarioId);
+
+            // Crear un mapa de respuesta para combinar ambos objetos
+            Map<String, Object> response = new HashMap<>();
+            response.put("correo", usuarioDTO.getCorreo());
+            response.put("nombre", usuarioDTO.getNombre());
+            response.put("apellido", usuarioDTO.getApellido());
+            response.put("telefono", usuarioDTO.getTelefono());
+            response.put("intereses", perfilVoluntarioDTO.getIntereses());
+            response.put("experiencia", perfilVoluntarioDTO.getExperiencia());
+            response.put("disponibilidad", perfilVoluntarioDTO.getDisponibilidad());
+
+            // Devolver la respuesta con código 200 OK
+            return ResponseEntity.ok(response);
+        } catch (NotFoundException e) {
+            // Si el usuario o perfil no es encontrado, devolver 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("mensaje", "Usuario o perfil no encontrado"));
+        } catch (Exception e) {
+            // Cualquier otro error, devolver 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("mensaje", "Error al obtener el perfil del usuario"));
+        }
     }
+
+    @GetMapping("/PerfilOrganizacion/{usuarioId}")
+    public ResponseEntity<Map<String, Object>> obtenerPerfilOrganizacionCompleto(@PathVariable Long usuarioId) {
+        try {
+            // Obtener los detalles del usuario por su ID
+            UsuarioDTO usuarioDTO = usuarioService.obtenerUsuarioPorId(usuarioId);
+
+            // Obtener el perfil de la organización usando el usuarioId
+            PerfilOrganizacionDTO perfilOrganizacionDTO = perfilOrganizacionService.obtenerPerfilPorUsuarioId(usuarioId);
+
+            // Crear un mapa de respuesta para combinar ambos objetos
+            Map<String, Object> response = new HashMap<>();
+            response.put("correo", usuarioDTO.getCorreo());
+            response.put("nombre", usuarioDTO.getNombre());
+            response.put("apellido", usuarioDTO.getApellido());
+            response.put("telefono", usuarioDTO.getTelefono());
+            response.put("nombreOrganizacion", perfilOrganizacionDTO.getNombreOrganizacion());
+            response.put("tipoOrganizacion", perfilOrganizacionDTO.getTipoOrganizacion());
+            response.put("sitioWeb", perfilOrganizacionDTO.getSitioWeb());
+
+            // Devolver la respuesta con código 200 OK
+            return ResponseEntity.ok(response);
+        } catch (NotFoundException e) {
+            // Si el usuario o perfil no es encontrado, devolver 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("mensaje", "Usuario o perfil no encontrado"));
+        } catch (Exception e) {
+            // Cualquier otro error, devolver 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("mensaje", "Error al obtener el perfil del usuario"));
+        }
+    }
+
 
 
     // -------------------
