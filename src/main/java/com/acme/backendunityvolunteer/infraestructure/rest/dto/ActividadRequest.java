@@ -9,9 +9,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ActividadRequest {
-
     @NotNull(message = "El nombre no puede estar vacío")
     private String nombre;
+
+    @NotNull(message = "La descripción no puede estar vacío")
+    private String descripcion;
 
     @NotNull(message = "El tipo no puede estar vacío")
     private String tipo;
